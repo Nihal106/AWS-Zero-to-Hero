@@ -204,7 +204,7 @@ This section provides a detailed understanding of AWS Elastic Beanstalk — how 
 | #    | Sub-Topic                                                                           | Description                                                             |
 | ---- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | 12.1 | [Introduction to Elastic Beanstalk](./Elastic-Beanstalk/Introduction-to-EB) | Introduction to AWS Elastic Beanstalk |
-| 12.2 | [Creating and Deploying an Application](./Elastic-Beanstalk/Creating-and-Deploying-an-Application) | Creating an Elastic Beanstalk environment and deploying an application |
+| 12.2 | [Creating and Deploying an Application](./Elastic-Beanstalk/Creating-an-Application) | Creating an Elastic Beanstalk environment and deploying an application |
 
 
 ## 🛠️ Prerequisites
