@@ -1,4 +1,4 @@
-# AWS Route 53 – Complete Study Notes
+# AWS Route 53
 
 ## 📘 Introduction
 
