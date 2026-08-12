@@ -170,7 +170,32 @@ This section provides a detailed understanding of Amazon EFS — how to create, 
 | 9.1  | [Introduction to AWS EFS](./Elastic%20File%20System/Intro%20to%20EFS/)              | File Storage Introduction, EFS architecture, features, and hands-on lab |
 | 9.2  | [Creating and Mounting EFS](./Elastic%20File%20System/Create%20and%20Mount%20EFS/)  | Create EFS, mount targets, attach to EC2 Linux instances |
 
-## 10. AWS Lambda
+## 10. AWS CloudWatch
+
+This section provides a detailed understanding of AWS CloudWatch — how to monitor AWS infrastructure and applications using metrics, logs, alarms, dashboards, and observability tools, along with hands-on experience in implementing real-world monitoring and troubleshooting workflows.
+
+📂 **[Explore → AWS CloudWatch](./AWS%20CloudWatch/)**
+
+| #    | Sub-Topic                                                                                   | Description                                                                                                      |
+| ---- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 10.1 | [Introduction to AWS CloudWatch](./AWS%20CloudWatch/01-Introduction-to-CloudWatch/)        | CloudWatch fundamentals, architecture, components, use cases, and CloudWatch vs CloudTrail                      |
+| 10.2 | [CloudWatch Metrics](./AWS%20CloudWatch/02-CloudWatch-Metrics/)                             | Metrics, namespaces, dimensions, statistics, periods, AWS metrics, and custom metrics                           |
+| 10.3 | [CloudWatch Logs](./AWS%20CloudWatch/03-CloudWatch-Logs/)                                   | Log groups, log streams, log events, log retention, and application and AWS service logging                     |
+| 10.4 | [CloudWatch Logs Insights](./AWS%20CloudWatch/04-CloudWatch-Logs-Insights/)                 | Log querying, filtering, sorting, statistics, error analysis, and production troubleshooting                     |
+| 10.5 | [CloudWatch Alarms](./AWS%20CloudWatch/05-CloudWatch-Alarms/)                               | Alarm states, thresholds, evaluation periods, alarm actions, and SNS integration                               |
+| 10.6 | [CloudWatch Metric Filters](./AWS%20CloudWatch/06-CloudWatch-Metric-Filters/)               | Log pattern matching, converting log events into metrics, and creating alarms from filtered metrics              |
+| 10.7 | [CloudWatch Dashboards](./AWS%20CloudWatch/07-CloudWatch-Dashboards/)                       | Creating monitoring dashboards, visualizing infrastructure metrics, and building production dashboards            |
+| 10.8 | [CloudWatch Agent](./AWS%20CloudWatch/08-CloudWatch-Agent/)                                 | CloudWatch Agent installation, configuration, system metrics, filesystem monitoring, and log collection           |
+| 10.9 | [CloudWatch AWS Services](./AWS%20CloudWatch/09-CloudWatch-AWS-Services/)                   | Monitoring EC2, RDS, ALB, Lambda, ECS, EKS, API Gateway, and other AWS services                                  |
+| 10.10 | [CloudWatch Container Insights](./AWS%20CloudWatch/10-CloudWatch-Container-Insights/)      | Container monitoring, ECS and EKS observability, and cluster, node, pod, and container metrics                    |
+| 10.11 | [CloudWatch EventBridge](./AWS%20CloudWatch/11-CloudWatch-EventBridge/)                    | Event-driven monitoring, event patterns, rules, targets, AWS events, and scheduled events                        |
+| 10.12 | [CloudWatch Cost Optimization](./AWS%20CloudWatch/13-CloudWatch-Cost-Optimization/)         | CloudWatch costs, log ingestion, retention, custom metrics, query costs, and monitoring cost optimization          |
+| 10.13 | [CloudWatch Production Monitoring](./AWS%20CloudWatch/14-CloudWatch-Production-Monitoring/) | Production monitoring architecture, metrics, logs, alarms, dashboards, incident detection, and troubleshooting   |
+| 10.14 | [EC2 CloudWatch Agent Monitoring Lab](./AWS%20CloudWatch/Labs/01-EC2-CloudWatch-Agent/)     | Hands-on lab to install the CloudWatch Agent on EC2, collect metrics and logs, create dashboards and alarms, and troubleshoot monitoring |
+
+
+
+## 11. AWS Lambda
 
 This section provides a detailed understanding of Amazon Lambda — how to create, deploy, manage, and optimize serverless functions for event-driven workloads. It covers core serverless concepts, function creation, triggers, execution roles, environment variables, versions and aliases, scaling behavior, monitoring, security, and hands-on labs.
 
@@ -179,11 +204,11 @@ This section provides a detailed understanding of Amazon Lambda — how to creat
 
 | #    | Sub-Topic                                                                           | Description                                                             |
 | ---- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| 10.1  | [Introduction to AWS Lambda](https://github.com/bhuvan-raj/AWS-Lambda)              | Introduction to AWS Lambda and hands-on lab |
-| 10.2  | [Containerized Lambda Function](https://github.com/bhuvan-raj/Lambda-Calculator-containerized)  | Create a container image, push to ecr and create a containerized lambda function |
+| 11.1  | [Introduction to AWS Lambda](https://github.com/bhuvan-raj/AWS-Lambda)              | Introduction to AWS Lambda and hands-on lab |
+| 11.2  | [Containerized Lambda Function](https://github.com/bhuvan-raj/Lambda-Calculator-containerized)  | Create a container image, push to ecr and create a containerized lambda function |
 
 
-## 11. AWS RDS
+## 12. AWS RDS
 
 This section provides a detailed understanding of Amazon RDS — how to create, deploy, manage, and optimize relational databases in the cloud. It covers core database concepts, DB instance creation, engine selection, connectivity, backups, Multi-AZ deployments, read replicas, scaling behavior, monitoring, security, maintenance, and hands-on labs.
 
@@ -191,11 +216,11 @@ This section provides a detailed understanding of Amazon RDS — how to create, 
 
 | #    | Sub-Topic                                                                           | Description                                                             |
 | ---- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| 11.1  | [Introduction to AWS RDS](./RDS/Introduction-to-RDS) | Introduction to AWS RDS |
-| 11.2  | [DB Creation and Connecting](./RDS/DB-Creation-and-Connecting)  | Creating a RDS MySQL database and Connecting it through client from an ec2 machine |
+| 12.1  | [Introduction to AWS RDS](./RDS/Introduction-to-RDS) | Introduction to AWS RDS |
+| 12.2  | [DB Creation and Connecting](./RDS/DB-Creation-and-Connecting)  | Creating a RDS MySQL database and Connecting it through client from an ec2 machine |
 
 
-## 12. AWS Elastic Beanstalk
+## 13. AWS Elastic Beanstalk
 
 This section provides a detailed understanding of AWS Elastic Beanstalk — how to deploy, manage, monitor, and scale applications in the cloud without manually managing infrastructure. It covers core Elastic Beanstalk concepts, environment creation, deployment workflows, application versions, deployment policies, scaling, load balancing, monitoring, security, Docker support, configuration management, and hands-on labs.
 
@@ -203,11 +228,11 @@ This section provides a detailed understanding of AWS Elastic Beanstalk — how 
 
 | #    | Sub-Topic                                                                           | Description                                                             |
 | ---- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| 12.1 | [Introduction to Elastic Beanstalk](./Elastic-Beanstalk/Introduction-to-EB) | Introduction to AWS Elastic Beanstalk |
-| 12.2 | [Creating and Deploying an Application](./Elastic-Beanstalk/Creating-an-Application) | Creating an Elastic Beanstalk environment and deploying an application |
+| 13.1 | [Introduction to Elastic Beanstalk](./Elastic-Beanstalk/Introduction-to-EB) | Introduction to AWS Elastic Beanstalk |
+| 13.2 | [Creating and Deploying an Application](./Elastic-Beanstalk/Creating-an-Application) | Creating an Elastic Beanstalk environment and deploying an application |
 
 
-## 13. AWS Route 53
+## 14. AWS Route 53
 
 This section provides a detailed understanding of AWS Route 53 — how to manage DNS, create hosted zones, register domains, configure routing policies, and route internet traffic efficiently. It covers core DNS concepts, hosted zones, DNS records, routing policies, health checks, domain registration, private and public hosted zones, failover mechanisms, and hands-on labs.
 
@@ -215,8 +240,8 @@ This section provides a detailed understanding of AWS Route 53 — how to manage
 
 | #    | Sub-Topic                                                                           | Description                                                             |
 | ---- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| 13.1 | [Introduction to Route 53](./Route53/Introduction-to-Route53) | Introduction to AWS Route 53 and DNS concepts |
-| 13.2 | [Creating a Hosted Zone](./Route53/Creating-HostedZone) | Creating Public and Private Hosted Zones and configuring DNS records |
+| 14.1 | [Introduction to Route 53](./Route53/Introduction-to-Route53) | Introduction to AWS Route 53 and DNS concepts |
+| 14.2 | [Creating a Hosted Zone](./Route53/Creating-HostedZone) | Creating Public and Private Hosted Zones and configuring DNS records |
 
 ## 🛠️ Prerequisites
 
