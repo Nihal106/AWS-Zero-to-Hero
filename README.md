@@ -189,8 +189,8 @@ This section provides a detailed understanding of AWS CloudWatch — how to moni
 | 10.9 | [CloudWatch AWS Services](./AWS%20CloudWatch/09-CloudWatch-AWS-Services/)                   | Monitoring EC2, RDS, ALB, Lambda, ECS, EKS, API Gateway, and other AWS services                                  |
 | 10.10 | [CloudWatch Container Insights](./AWS%20CloudWatch/10-CloudWatch-Container-Insights/)      | Container monitoring, ECS and EKS observability, and cluster, node, pod, and container metrics                    |
 | 10.11 | [CloudWatch EventBridge](./AWS%20CloudWatch/11-CloudWatch-EventBridge/)                    | Event-driven monitoring, event patterns, rules, targets, AWS events, and scheduled events                        |
-| 10.12 | [CloudWatch Cost Optimization](./AWS%20CloudWatch/13-CloudWatch-Cost-Optimization/)         | CloudWatch costs, log ingestion, retention, custom metrics, query costs, and monitoring cost optimization          |
-| 10.13 | [CloudWatch Production Monitoring](./AWS%20CloudWatch/14-CloudWatch-Production-Monitoring/) | Production monitoring architecture, metrics, logs, alarms, dashboards, incident detection, and troubleshooting   |
+| 10.12 | [CloudWatch Cost Optimization](./AWS%20CloudWatch/12-CloudWatch-Cost-Optimization/)         | CloudWatch costs, log ingestion, retention, custom metrics, query costs, and monitoring cost optimization          |
+| 10.13 | [CloudWatch Production Monitoring](./AWS%20CloudWatch/13-CloudWatch-Production-Monitoring/) | Production monitoring architecture, metrics, logs, alarms, dashboards, incident detection, and troubleshooting   |
 | 10.14 | [EC2 CloudWatch Agent Monitoring Lab](./AWS%20CloudWatch/Labs/01-EC2-CloudWatch-Agent/)     | Hands-on lab to install the CloudWatch Agent on EC2, collect metrics and logs, create dashboards and alarms, and troubleshoot monitoring |
 
 
