@@ -243,6 +243,20 @@ This section provides a detailed understanding of AWS Route 53 — how to manage
 | 14.1 | [Introduction to Route 53](./Route53/Introduction-to-Route53) | Introduction to AWS Route 53 and DNS concepts |
 | 14.2 | [Creating a Hosted Zone](./Route53/Creating-HostedZone) | Creating Public and Private Hosted Zones and configuring DNS records |
 
+## 15. AWS CloudFront
+
+This section provides a detailed understanding of **AWS CloudFront** — how to deliver applications and content globally with low latency using AWS's Content Delivery Network (CDN). It covers core CloudFront concepts, distributions, origins, edge locations, caching, cache policies, cache behaviors, invalidations, HTTPS, Origin Access Control (OAC), AWS WAF, CloudFront with S3, ALB and EKS, troubleshooting, and hands-on labs.
+
+📂 **[Explore → AWS CloudFront](./CloudFront/)**
+
+| #    | Sub-Topic                                                                              | Description                                                                                        |
+| ---- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| 15.1 | [Introduction to CloudFront](./CloudFront/01-CloudFront-Introduction-and-Architecture) | Introduction to AWS CloudFront, CDN concepts, distributions, origins, and edge locations           |
+| 15.2 | [Caching and Policies](./CloudFront/02-Caching-and-Policies)                           | Understanding CloudFront caching, TTL, cache hits, cache misses, cache policies, and invalidations |
+| 15.3 | [Security and Production](./CloudFront/03-Security-and-Production)                     | HTTPS, Origin Access Control, AWS WAF, monitoring, S3, ALB, and EKS architectures                  |
+| 15.4 | [S3 + CloudFront Lab](./CloudFront/05-Lab-S3-CloudFront-Static-Website)                | Hands-on lab for hosting a private S3 static website through CloudFront                            |
+
+
 ## 🛠️ Prerequisites
 
 * Basic understanding of AWS networking (VPC, Subnets, Security Groups)
