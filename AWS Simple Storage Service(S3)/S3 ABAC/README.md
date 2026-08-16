@@ -334,7 +334,8 @@ Enterprise-grade design.
 * Highly scalable
 * Recommended for large AWS environments
 * Best practice for modern IAM design
-*
+
+
 
 # 🧪 LAB: Implement S3 Bucket ABAC
 
