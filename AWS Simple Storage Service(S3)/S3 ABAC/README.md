@@ -334,171 +334,202 @@ Enterprise-grade design.
 * Highly scalable
 * Recommended for large AWS environments
 * Best practice for modern IAM design
-* 
 
-
-
-
-# 🧪 LAB: Implement Bucket ABAC (Attribute-Based Access Control)
 
 ---
+# 🧪 LAB: Implement S3 Bucket ABAC
 
 ## 🎯 Objective
 
-To allow access to an S3 bucket **only when IAM principal tags match S3 bucket tags**, without specifying user or role ARNs in the bucket policy.
+Allow an IAM user to access an S3 bucket only when:
+
+* IAM user's **Department** tag = `Developer`
+* S3 bucket's **Department** tag = `Developer`
+
+This demonstrates **Attribute-Based Access Control (ABAC)** using principal and resource tags.
 
 ---
 
-## 🧠 Concept Used
+# 🏗 Lab Architecture
 
-* Attribute-Based Access Control (ABAC)
-* IAM Principal Tags
-* S3 Resource Tags
-* Bucket Policy Conditions
-
----
-
-## 🏗 Architecture
-
-```
-IAM User (tagged)
+```text
+IAM User
+Department = Developer
         │
         ▼
-   Bucket Policy
+   IAM Policy
+     (ABAC)
         │
         ▼
-S3 Bucket (tagged)
+S3 Bucket
+Department = Developer
+
+Both Match → ✅ Access Allowed
+Mismatch    → ❌ Access Denied
 ```
 
-Access is allowed **only if tags match**.
+---
+
+# 🔧 Prerequisites
+
+* AWS Account
+* IAM permissions
+* Amazon S3 permissions
 
 ---
 
-## 🔧 Pre-requisites
+# 🔹 Lab Details
 
-* AWS account
-* IAM user with:
-
-  * Programmatic access
-  * Console access
-* AWS-managed policies only
-
----
-
-# 🔹 LAB DETAILS
-
-| Component  | Value           |
-| ---------- | --------------- |
-| IAM User   | abac-user       |
-| IAM Tag    | Project = dev   |
-| S3 Bucket  | abac-dev-bucket |
-| Bucket Tag | Project = dev   |
+| Component  | Value                    |
+| ---------- | ------------------------ |
+| IAM User   | `abac-user`              |
+| User Tag   | `Department = Developer` |
+| S3 Bucket  | `abac-demo-bucket`       |
+| Bucket Tag | `Department = Developer` |
 
 ---
 
 # STEP 1 — Create IAM User
 
-1. Go to **IAM → Users**
-2. Click **Create user**
-3. User name:
+Go to:
 
-   ```
-   abac-user
-   ```
-4. Enable:
+**IAM → Users → Create user**
 
-   * AWS Management Console access
-5. Click **Next**
+Create:
+
+```text
+abac-user
+```
+
+Enable:
+
+* AWS Management Console access
+
+Do **not** attach any S3 policy.
+
+Create the user.
 
 ---
 
-## Attach policy
+# STEP 2 — Add IAM User Tag
 
-Attach AWS managed policy:
+Go to:
 
+**IAM → Users → abac-user → Tags**
+
+Add:
+
+```text
+Key   : Department
+Value : Developer
 ```
-AmazonS3ReadOnlyAccess
-```
-
-(Used only to test; bucket policy will enforce ABAC.)
-
-Click **Next → Create user**
-
----
-
-# STEP 2 — Add TAG to IAM User
-
-1. Open **IAM → Users → abac-user**
-2. Go to **Tags tab**
-3. Click **Add tag**
-
-```
-Key   : Project
-Value : dev
-```
-
-Save.
-
-✅ IAM principal now has an attribute.
 
 ---
 
 # STEP 3 — Create S3 Bucket
 
-1. Go to **S3**
-2. Click **Create bucket**
+Go to:
 
-```
-Bucket name: abac-dev-bucket
-Region: ap-south-1
+**S3 → Create bucket**
+
+Bucket name:
+
+```text
+abac-demo-bucket
 ```
 
-3. Keep **Block all public access ON**
-4. Create bucket
+Keep the default settings and create the bucket.
+
+> S3 bucket names must be globally unique. Use a different name if required.
 
 ---
 
-# STEP 4 — Add TAG to S3 Bucket
+# STEP 4 — Enable Bucket ABAC
 
-1. Open the bucket
-2. Go to **Properties**
-3. Scroll to **Tags**
-4. Add tag:
+Open:
 
-```
-Key   : Project
-Value : dev
-```
+**S3 → abac-demo-bucket → Properties**
 
-Save.
+Find:
+
+**Bucket ABAC**
+
+Click:
+
+**Edit → Enable → Save changes**
+
+ABAC must be enabled before bucket tag-based conditions such as `s3:BucketTag` are used for authorization.
 
 ---
 
-# STEP 5 — Add Bucket Policy (ABAC Policy)
+# STEP 5 — Tag the Bucket
 
-1. Go to **Permissions tab**
-2. Open **Bucket policy**
-3. Paste the following policy:
+Go to:
+
+**Properties → Tags**
+
+Add:
+
+```text
+Key   : Department
+Value : Developer
+```
+
+---
+
+# STEP 6 — Upload Test File
+
+Upload:
+
+```text
+sample.txt
+```
+
+---
+
+# STEP 7 — Create IAM ABAC Policy
+
+Go to:
+
+**IAM → Policies → Create policy → JSON**
+
+Use:
 
 ```json
 {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "BucketABACAccess",
+      "Sid": "ListAllBuckets",
       "Effect": "Allow",
-      "Principal": "*",
-      "Action": [
-        "s3:GetObject",
-        "s3:ListBucket"
-      ],
-      "Resource": [
-        "arn:aws:s3:::abac-dev-bucket",
-        "arn:aws:s3:::abac-dev-bucket/*"
-      ],
+      "Action": "s3:ListAllMyBuckets",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ListBucket",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::abac-demo-bucket",
       "Condition": {
         "StringEquals": {
-          "aws:PrincipalTag/Project": "${s3:ResourceTag/Project}"
+          "aws:PrincipalTag/Department": "Developer",
+          "s3:BucketTag/Department": "Developer"
+        }
+      }
+    },
+    {
+      "Sid": "ObjectAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::abac-demo-bucket/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:PrincipalTag/Department": "Developer",
+          "s3:BucketTag/Department": "Developer"
         }
       }
     }
@@ -506,86 +537,236 @@ Save.
 }
 ```
 
-Save policy.
+Policy name:
 
----
-
-# 🔥 What this policy means
-
-AWS evaluates:
-
-```
-IAM User Tag      → Project = dev
-Bucket Tag        → Project = dev
-Condition         → MATCH
+```text
+S3-Bucket-ABAC-Policy
 ```
 
-✅ Access allowed.
-
-No user ARN is mentioned anywhere.
+Create the policy.
 
 ---
 
-# STEP 6 — Test Access (Positive Case)
+# STEP 8 — Attach Policy to User
 
-1. Log in as **abac-user**
-2. Open **S3**
-3. Click bucket **abac-dev-bucket**
+Go to:
 
-✅ You can:
+**IAM → Users → abac-user → Add permissions**
 
-* List bucket
-* Download objects
+Attach:
+
+```text
+S3-Bucket-ABAC-Policy
+```
+
+Do **not** attach:
+
+```text
+AmazonS3ReadOnlyAccess
+AmazonS3FullAccess
+```
+
+The custom policy itself provides the required S3 permissions.
 
 ---
 
-# STEP 7 — Negative Test (Mismatch)
+# STEP 9 — Positive Test ✅
 
-## Change IAM tag
+Log in as:
 
-IAM → Users → abac-user → Tags
+```text
+abac-user
+```
+
+Open:
+
+**S3 → abac-demo-bucket**
+
+Expected:
+
+* ✅ List objects
+* ✅ Download objects
+* ✅ Upload objects
+* ✅ Delete objects
+
+Because:
+
+```text
+User:
+Department = Developer
+
+Bucket:
+Department = Developer
+```
+
+Both conditions match.
+
+---
+
+# STEP 10 — Negative Test: Change User Tag ❌
+
+Log in as Administrator.
+
+Go to:
+
+**IAM → Users → abac-user → Tags**
 
 Change:
 
+```text
+Department = HR
 ```
-Project = prod
-```
 
----
+Log in again as `abac-user`.
 
-## Test again
+Try accessing the bucket.
 
-Try opening the bucket.
+Expected:
 
-❌ Result:
-
-```
+```text
 Access Denied
 ```
 
-No policy changes were made.
+Because:
 
-Only tag changed.
-
----
-
-# ✅ This confirms ABAC is working
-
-Access is **fully controlled by tags**.
+```text
+User   = HR
+Bucket = Developer
+```
 
 ---
 
-# 🧠 Key Observations
+# STEP 11 — Negative Test: Change Bucket Tag ❌
 
-| Action           | Result         |
-| ---------------- | -------------- |
-| Tag match        | Access allowed |
-| Tag mismatch     | Access denied  |
-| No ARN in policy | Yes            |
-| Scalable         | Yes            |
-| Dynamic          | Yes            |
+Change the bucket tag to:
+
+```text
+Department = HR
+```
+
+Keep the user tag as:
+
+```text
+Department = Developer
+```
+
+Try accessing the bucket again.
+
+Expected:
+
+```text
+Access Denied
+```
+
+Because:
+
+```text
+User   = Developer
+Bucket = HR
+```
 
 ---
+
+# STEP 12 — Restore Access
+
+Change both tags back to:
+
+```text
+Department = Developer
+```
+
+Access is restored.
+
+---
+
+# 🧠 How ABAC Works
+
+```text
+IAM Principal Tag
+Department = Developer
+        │
+        ▼
+     Compare
+        │
+        ▼
+S3 Bucket Tag
+Department = Developer
+        │
+        ▼
+      MATCH?
+      /    \
+    YES     NO
+     │       │
+     ▼       ▼
+  Allow     Deny
+```
+
+---
+
+# 📌 Key Observations
+
+| Scenario                             | Result         |
+| ------------------------------------ | -------------- |
+| User = Developer, Bucket = Developer | ✅ Access       |
+| User = HR, Bucket = Developer        | ❌ Denied       |
+| User = Developer, Bucket = HR        | ❌ Denied       |
+| IAM user ARN in policy               | ❌ Not required |
+| Bucket policy                        | ❌ Not required |
+| Dynamic access                       | ✅ Yes          |
+
+---
+
+# 🌍 Real-World Example
+
+```text
+Developer
+Department = Developer
+        ↓
+Developer Bucket
+Department = Developer
+        ↓
+✅ Access
+```
+
+But:
+
+```text
+Developer
+Department = Developer
+        ↓
+HR Bucket
+Department = HR
+        ↓
+❌ Access Denied
+```
+
+ABAC allows organizations to control access based on **attributes/tags** instead of creating separate policies for every user.
+
+---
+
+# ⭐ Key Takeaway
+
+> **ABAC controls access based on attributes such as tags. When the principal's attributes match the resource's attributes, access can be granted.**
+
+```text
+Principal Tag + Bucket Tag
+            ↓
+        ABAC Policy
+            ↓
+       Allow / Deny
+```
+
+---
+
+# 🧹 Cleanup
+
+After completing the lab:
+
+1. Delete `sample.txt`
+2. Delete `abac-demo-bucket`
+3. Delete `S3-Bucket-ABAC-Policy`
+4. Delete `abac-user`
+
 
 # 🔐 Important Notes
 
