@@ -29,7 +29,7 @@ Use:
 Inside EC2:
 
 ```
-ssh-keygen -t rsa -b 2048
+ssh-keygen -t rsa -b 2048 -m PEM
 ```
 
 Press Enter for:
